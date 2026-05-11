@@ -1,10 +1,11 @@
 "use client";
 
 import styled from "styled-components";
-import { AppBar, Toolbar, Box, Button } from "@mui/material";
+import { AppBar, Toolbar, Box, Button, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
-import { useArticle } from "@/context/ArticleContext";
+
+// import { useArticle } from "@/context/ArticleContext";
 
 const StyledAppBar = styled(AppBar)`
   background-color: #fff !important;
@@ -16,10 +17,10 @@ const categories = ["Alle", "Indland", "Udland", "Teknologi", "Sport", "Politik 
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { setSelectedCategory } = useArticle();
+  // const { setSelectedCategory } = useArticle();
 
   const handleCategoryClick = (category: string) => {
-    setSelectedCategory(category === "Alle" ? null : category);
+    // setSelectedCategory(category === "Alle" ? null : category);
   };
 
   return (
