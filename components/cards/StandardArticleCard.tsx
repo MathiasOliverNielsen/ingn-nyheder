@@ -8,13 +8,13 @@ interface Article {
   title: string;
   image?: { url: string };
   author?: { authorName: string };
-  category?: { name: string; color: { hex: string } };
+  category?: Array<{ name: string; color: { hex: string } }>;
 }
 
 const StyledCard = styled(Card)`
-  height: 100%;
+  height: 300px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   transition: transform 0.3s ease;
 
   &:hover {
@@ -23,7 +23,7 @@ const StyledCard = styled(Card)`
 `;
 
 const StyledMedia = styled(CardMedia)`
-  height: 250px;
+  height: 200px;
   object-fit: cover;
 `;
 
@@ -31,9 +31,14 @@ export default function StandardArticleCard({ article }: { article: Article }) {
   return (
     <StyledCard>
       {article.image && <StyledMedia image={article.image.url} title={article.title} />}
-      <CardContent>
-        <Typography variant="h6">{article.title}</Typography>
-        <Typography variant="caption">By {article.author?.authorName || "Unknown"}</Typography>
+      <CardContent sx={{ p: 1.5, fontFamily: "Righteous" }}>
+        <Typography variant="h6" sx={{ fontFamily: "Roboto Flex", fontWeight: 700 }}>
+          {article.title}
+        </Typography>
+        <Typography variant="caption" sx={{ color: "text.secondary" }}>
+          Af {article.author?.authorName || "Unknown"}
+        </Typography>
+        {article.category?.[0] && <Typography variant="caption">• {article.category[0].name}</Typography>}
       </CardContent>
     </StyledCard>
   );

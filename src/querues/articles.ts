@@ -18,7 +18,6 @@ export const ARTICLES_QUERY = `
         url
       }
       category {
-        ... on Category {
           name
           color {
             hex
@@ -26,5 +25,4 @@ export const ARTICLES_QUERY = `
         }
       }
     }
-  }
 `;

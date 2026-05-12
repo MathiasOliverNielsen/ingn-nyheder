@@ -7,13 +7,13 @@ interface Article {
   title: string;
   image?: { url: string };
   author?: { authorName: string };
-  category?: { name: string; color?: { hex: string } };
+  category?: Array<{ name: string; color: { hex: string } }>;
 }
 
 const StyledCard = styled(Card)`
   height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -34,16 +34,11 @@ export default function FeaturedArticleCard({ article }: { article: Article }) {
     <StyledCard>
       {article.image && <StyledMedia image={article.image.url} title={article.title} />}
       <CardContent>
-        {article.category && (
-          <Typography variant="caption" sx={{ color: article.category.color?.hex || "#000" }}>
-            {article.category.name}
-          </Typography>
-        )}
         <Typography variant="h5" component="h2">
           {article.title}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          By {article.author?.authorName || "Unknown"}
+          Udgiver - {article.author?.authorName || "Unknown"}
         </Typography>
       </CardContent>
     </StyledCard>

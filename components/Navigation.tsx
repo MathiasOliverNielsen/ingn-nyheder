@@ -14,7 +14,7 @@ export default function Navigation() {
   const { setSelectedCategory } = useArticle();
 
   const handleCategoryClick = (category: string) => {
-    setSelectedCategory(category === "Alle" ? category : null);
+    setSelectedCategory(category === "Alle" ? null : category);
   };
 
   return (
