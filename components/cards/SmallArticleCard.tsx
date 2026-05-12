@@ -12,7 +12,7 @@ interface Article {
 }
 
 const StyledCard = styled(Card)`
-  height: 200px;
+  height: 250px;
   display: flex;
   flex-direction: column-reverse;
   transition: transform 0.3s ease;
@@ -38,7 +38,6 @@ export default function SmallArticleCard({ article }: { article: Article }) {
         <Typography variant="caption" sx={{ color: "text.secondary" }}>
           Af {article.author?.authorName || "Unknown"}
         </Typography>
-        {article.category?.[0] && <Typography variant="caption">• {article.category[0].name}</Typography>}
       </CardContent>
     </StyledCard>
   );

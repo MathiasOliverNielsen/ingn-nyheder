@@ -7,6 +7,7 @@ import { Container, Box } from "@mui/material";
 import StandardArticleCard from "./cards/StandardArticleCard";
 import SmallArticleCard from "./cards/SmallArticleCard";
 import FeaturedArticleCard from "./cards/FeturedArticleCard";
+import HorizontalArticleCard from "./cards/HorizontalArticleCard";
 
 interface Article {
   id: string;
@@ -61,49 +62,34 @@ export default function Articles() {
       )}
 
       {/* Two Column Layout */}
-      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 2 }}>
-        {/* Left Column: 1,2,5,6,9,10... Standard, Small pattern */}
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {rest.map((article, idx) => {
-            if (idx % 4 === 0) {
-              return (
-                <Box key={article.id}>
-                  <StandardArticleCard article={article} />
-                </Box>
-              );
-            }
-            if (idx % 4 === 1) {
-              return (
-                <Box key={article.id}>
-                  <SmallArticleCard article={article} />
-                </Box>
-              );
-            }
-            return null;
-          })}
+      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 3 }}>
+        {/* Left Column */}
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          {rest[0] && <StandardArticleCard article={rest[0]} />}
+          {rest[1] && <SmallArticleCard article={rest[1]} />}
         </Box>
 
-        {/* Right Column: 3,4,7,8,11,12... Small, Standard pattern */}
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {rest.map((article, idx) => {
-            if (idx % 4 === 2) {
-              return (
-                <Box key={article.id}>
-                  <SmallArticleCard article={article} />
-                </Box>
-              );
-            }
-            if (idx % 4 === 3) {
-              return (
-                <Box key={article.id}>
-                  <StandardArticleCard article={article} />
-                </Box>
-              );
-            }
-            return null;
-          })}
+        {/* Right Column */}
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          {rest[2] && <SmallArticleCard article={rest[2]} />}
+          {rest[3] && <StandardArticleCard article={rest[3]} />}
         </Box>
       </Box>
+
+      {/* Full Width Horizontal Articles */}
+      {(rest[4] || rest[5]) && (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4 }}>
+          {rest[4] && <HorizontalArticleCard article={rest[4]} />}
+          {rest[5] && <HorizontalArticleCard article={rest[5]} reversed />}
+        </Box>
+      )}
+      {/* Last Two Articles Side by Side */}
+      {(rest[6] || rest[7]) && (
+        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 3, mt: 4 }}>
+          {rest[6] && <StandardArticleCard article={rest[6]} />}
+          {rest[7] && <StandardArticleCard article={rest[7]} />}
+        </Box>
+      )}
     </Container>
   );
 }

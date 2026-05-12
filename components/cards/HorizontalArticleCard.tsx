@@ -11,34 +11,47 @@ interface Article {
   category?: Array<{ name: string; color: { hex: string } }>;
 }
 
-const StyledCard = styled(Card)`
-  height: 300px;
+interface Props {
+  article: Article;
+  reversed?: boolean;
+}
+
+const StyledCard = styled(Card)<{ $reversed?: boolean }>`
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: ${(props) => (props.$reversed ? "row-reverse" : "row")};
+  height: 200px;
   transition: transform 0.3s ease;
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
   }
 `;
 
 const StyledMedia = styled(CardMedia)`
-  height: 200px;
+  width: 50%;
   object-fit: cover;
 `;
 
-export default function StandardArticleCard({ article }: { article: Article }) {
+const StyledContent = styled(CardContent)`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+`;
+
+export default function HorizontalArticleCard({ article, reversed = false }: Props) {
   return (
-    <StyledCard>
+    <StyledCard $reversed={reversed}>
       {article.image && <StyledMedia image={article.image.url} title={article.title} />}
-      <CardContent sx={{ p: 1.5, fontFamily: "Righteous" }}>
+      <StyledContent>
         <Typography variant="h6" sx={{ fontFamily: "Roboto Flex", fontWeight: 700 }}>
           {article.title}
         </Typography>
         <Typography variant="caption" sx={{ color: "text.secondary" }}>
           Af {article.author?.authorName || "Unknown"}
         </Typography>
-      </CardContent>
+      </StyledContent>
     </StyledCard>
   );
 }
