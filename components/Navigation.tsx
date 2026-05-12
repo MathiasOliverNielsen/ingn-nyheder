@@ -1,58 +1,49 @@
 "use client";
 
-import styled from "styled-components";
-import { AppBar, Toolbar, Box, Button, Typography } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
+import { useArticle } from "@/context/ArticleContext";
+import styles from "./Navigation.module.scss";
+import userIcon from "../public/img/icons/icon _User_.png";
+import logoImg from "../public/img/icons/INGN.png";
+import Image from "next/image";
 
-// import { useArticle } from "@/context/ArticleContext";
-
-const StyledAppBar = styled(AppBar)`
-  background-color: #fff !important;
-  color: #333 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-`;
-
-const categories = ["Alle", "Indland", "Udland", "Teknologi", "Sport", "Politik og Samfund"];
+const categories = ["Alle", "Indland", "Udland", "Teknologi", "Sport", "Politik", "Samfund"];
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  // const { setSelectedCategory } = useArticle();
+  const { setSelectedCategory } = useArticle();
 
   const handleCategoryClick = (category: string) => {
-    // setSelectedCategory(category === "Alle" ? null : category);
+    setSelectedCategory(category === "Alle" ? category : null);
   };
 
   return (
-    <StyledAppBar position="static">
-      <Toolbar>
-        <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-            INGN Nyheder
-          </Typography>
-        </Box>
-        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
+    <nav className={styles.navbar}>
+      <div className={styles.container}>
+        <Image src={logoImg} alt="INGN Logo" height={40} className={styles.logo} />
+
+        <div className={`${styles.menu} ${mobileOpen ? styles.open : ""}`}>
           {categories.map((cat) => (
-            <Button key={cat} onClick={() => handleCategoryClick(cat)}>
+            <button
+              key={cat}
+              onClick={() => {
+                handleCategoryClick(cat);
+                setMobileOpen(false);
+              }}
+              className={styles.navLink}
+            >
               {cat}
-            </Button>
+            </button>
           ))}
-        </Box>
-        <Box sx={{ display: { xs: "flex", md: "none" } }}>
-          <Button onClick={() => setMobileOpen(!mobileOpen)}>
-            <MenuIcon />
-          </Button>
-        </Box>
-      </Toolbar>
-      {mobileOpen && (
-        <Box sx={{ display: "flex", flexDirection: "column", p: 2 }}>
-          {categories.map((cat) => (
-            <Button key={cat} onClick={() => handleCategoryClick(cat)}>
-              {cat}
-            </Button>
-          ))}
-        </Box>
-      )}
-    </StyledAppBar>
+        </div>
+
+        <div className={styles.rightSection}>
+          <Image src={userIcon} alt="Login" width={24} height={24} className={styles.userIcon} />
+          <button className={styles.hamburger} onClick={() => setMobileOpen(!mobileOpen)}>
+            ☰
+          </button>
+        </div>
+      </div>
+    </nav>
   );
 }
