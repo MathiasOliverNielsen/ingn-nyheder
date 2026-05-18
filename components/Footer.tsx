@@ -50,6 +50,7 @@ export default function Footer() {
           </FooterSection>
 
           {/* Links */}
+          {/* todo need to fix */}
           <FooterSection>
             <SectionTitle variant="body2">Links</SectionTitle>
             <FooterLink>vikanweb.dk</FooterLink>

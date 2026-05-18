@@ -2,10 +2,12 @@
 
 import styled from "styled-components";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
+import Link from "next/link";
 
 interface Article {
   id: string;
   title: string;
+  slug: string;
   publishDate?: string;
   image?: { url: string };
   author?: { authorName: string };
@@ -53,19 +55,21 @@ export default function HorizontalArticleCard({ article, reversed = false }: Pro
   };
 
   return (
-    <StyledCard $reversed={reversed}>
-      {article.image && <StyledMedia image={article.image.url} title={article.title} />}
-      <StyledContent>
-        <Typography variant="h6" sx={{ fontFamily: "Roboto Flex", fontWeight: 700, mb: 0.5 }}>
-          {article.title}
-        </Typography>
-        <Typography variant="caption" sx={{ color: "text.secondary", mb: 0.5 }}>
-          D. {article.publishDate ? formatDate(article.publishDate) : "N/A"} - Af {article.author?.authorName || "Unknown"}
-        </Typography>
-        <Typography variant="caption" sx={{ color: "#777", fontWeight: 600 }}>
-          Læs mere
-        </Typography>
-      </StyledContent>
-    </StyledCard>
+    <Link href={`/article/${article.slug}`} style={{ textDecoration: "none" }}>
+      <StyledCard $reversed={reversed}>
+        {article.image && <StyledMedia image={article.image.url} title={article.title} />}
+        <StyledContent>
+          <Typography variant="h6" sx={{ fontFamily: "Roboto Flex", fontWeight: 700, mb: 0.5 }}>
+            {article.title}
+          </Typography>
+          <Typography variant="caption" sx={{ color: "text.secondary", mb: 0.5 }}>
+            D. {article.publishDate ? formatDate(article.publishDate) : "N/A"} - Af {article.author?.authorName || "Unknown"}
+          </Typography>
+          <Typography variant="caption" sx={{ color: "#777", fontWeight: 600 }}>
+            Læs mere
+          </Typography>
+        </StyledContent>
+      </StyledCard>
+    </Link>
   );
 }

@@ -1,10 +1,12 @@
 "use client";
 import styled from "styled-components";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
+import Link from "next/link";
 
 interface Article {
   id: string;
   title: string;
+  slug: string;
   publishDate?: string;
   image?: { url: string };
   author?: { authorName: string };
@@ -42,19 +44,21 @@ export default function FeaturedArticleCard({ article }: { article: Article }) {
   };
 
   return (
-    <StyledCard>
-      {article.image && <StyledMedia image={article.image.url} title={article.title} />}
-      <CardContent>
-        <Typography variant="h5" component="h2" sx={{ mb: 0.5 }}>
-          {article.title}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" sx={{ mb: 0.5 }}>
-          D. {article.publishDate ? formatDate(article.publishDate) : "N/A"} - {article.author?.authorName || "Unknown"}
-        </Typography>
-        <Typography variant="body2" sx={{ color: "#777", fontWeight: 600 }}>
-          Læs mere
-        </Typography>
-      </CardContent>
-    </StyledCard>
+    <Link href={`/article/${article.slug}`} style={{ textDecoration: "none" }}>
+      <StyledCard>
+        {article.image && <StyledMedia image={article.image.url} title={article.title} />}
+        <CardContent>
+          <Typography variant="h5" component="h2" sx={{ mb: 0.5 }}>
+            {article.title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" sx={{ mb: 0.5 }}>
+            D. {article.publishDate ? formatDate(article.publishDate) : "N/A"} - {article.author?.authorName || "Unknown"}
+          </Typography>
+          <Typography variant="body2" sx={{ color: "#777", fontWeight: 600 }}>
+            Læs mere
+          </Typography>
+        </CardContent>
+      </StyledCard>
+    </Link>
   );
 }

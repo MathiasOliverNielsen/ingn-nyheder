@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useArticle } from "@/context/ArticleContext";
+import Link from "next/link";
 import styles from "./Navigation.module.scss";
 import userIcon from "../public/img/icons/icon _User_.png";
 import logoImg from "../public/img/icons/INGN.png";
@@ -20,21 +21,29 @@ export default function Navigation() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
-        <Image src={logoImg} alt="INGN Logo" height={40} className={styles.logo} />
+        <Link href="/">
+          <Image src={logoImg} alt="INGN Logo" height={40} className={styles.logo} />
+        </Link>
 
         <div className={`${styles.menu} ${mobileOpen ? styles.open : ""}`}>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                handleCategoryClick(cat);
-                setMobileOpen(false);
-              }}
-              className={styles.navLink}
-            >
-              {cat}
-            </button>
-          ))}
+          {categories.map((cat) =>
+            cat === "Alle" ? (
+              <Link key={cat} href="/" className={styles.navLink} style={{ textDecoration: "none", color: "inherit" }}>
+                {cat}
+              </Link>
+            ) : (
+              <button
+                key={cat}
+                onClick={() => {
+                  handleCategoryClick(cat);
+                  setMobileOpen(false);
+                }}
+                className={styles.navLink}
+              >
+                {cat}
+              </button>
+            ),
+          )}
         </div>
 
         <div className={styles.rightSection}>

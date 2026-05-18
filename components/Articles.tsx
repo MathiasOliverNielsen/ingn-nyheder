@@ -2,7 +2,7 @@
 
 import { useGraphQuery } from "@/hooks/useGraphQuery";
 import { useArticle } from "@/context/ArticleContext";
-import { ARTICLES_QUERY } from "@/querues/articles";
+import { ARTICLES_QUERY } from "@/queries/articles";
 import { Container, Box } from "@mui/material";
 import StandardArticleCard from "./cards/StandardArticleCard";
 import SmallArticleCard from "./cards/SmallArticleCard";
