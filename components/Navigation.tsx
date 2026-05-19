@@ -28,7 +28,7 @@ export default function Navigation() {
         <div className={`${styles.menu} ${mobileOpen ? styles.open : ""}`}>
           {categories.map((cat) =>
             cat === "Alle" ? (
-              <Link key={cat} href="/" className={styles.navLink} style={{ textDecoration: "none", color: "inherit" }}>
+              <Link key={cat} href="/" className={styles.navLink} style={{ textDecoration: "none", color: "inherit" }} onClick={() => handleCategoryClick(cat)}>
                 {cat}
               </Link>
             ) : (
