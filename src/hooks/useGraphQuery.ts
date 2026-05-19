@@ -20,13 +20,28 @@ export function useGraphQuery<T>(query: string, variables?: Record<string, any>)
   // error handling
   const [error, setError] = useState<Error | null>(null);
 
+  const queryCache = new Map<string, { data: any; timestamp: number }>();
+  const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
   useEffect(() => {
     const fetchData = async () => {
+      // Before fetching, check cache:
+      const cacheKey = `${query}:${JSON.stringify(variables || {})}`;
+      const cached = queryCache.get(cacheKey);
+      if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+        setData(cached.data);
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         const result = await graphClient.request<T>(query, variables);
         setData(result);
         setError(null);
+
+        // Store in cache
+        queryCache.set(cacheKey, { data: result, timestamp: Date.now() });
       } catch (err) {
         setError(err instanceof Error ? err : new Error("Unknown error"));
         setData(null);

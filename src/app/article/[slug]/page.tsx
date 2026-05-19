@@ -1,5 +1,6 @@
 import { graphClient } from "@/helpers/graphClient";
 import { ARTICLE_QUERY } from "@/queries/article";
+import { ARTICLES_QUERY } from "@/queries/articles"; // Add this
 import { Container, Box, Typography, Card, CardMedia, Link } from "@mui/material";
 
 interface Props {
@@ -70,3 +71,13 @@ export default async function ArticlePage({ params }: Props) {
     </Container>
   );
 }
+
+export async function generateStaticParams() {
+  const { articles } = await graphClient.request(ARTICLES_QUERY);
+  return articles.map((article: { slug: string }) => ({
+    slug: article.slug,
+  }));
+}
+
+// Add at top of page.tsx
+export const revalidate = 3600; // Revalidate every hour
