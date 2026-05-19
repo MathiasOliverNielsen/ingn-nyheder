@@ -51,7 +51,7 @@ export default function FeaturedArticleCard({ article }: { article: Article }) {
           <Typography variant="h5" component="h2" sx={{ mb: 0.5 }}>
             {article.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" sx={{ mb: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#C52525", mb: 0.5 }}>
             D. {article.publishDate ? formatDate(article.publishDate) : "N/A"} - {article.author?.authorName || "Unknown"}
           </Typography>
           <Typography variant="body2" sx={{ color: "#777", fontWeight: 600 }}>

@@ -49,8 +49,8 @@ export default function SmallArticleCard({ article }: { article: Article }) {
           <Typography variant="body2" sx={{ fontFamily: "Roboto Flex", fontWeight: 700, fontSize: "1rem", mb: 0.5 }}>
             {article.title}
           </Typography>
-          <Typography variant="caption" sx={{ color: "text.secondary", display: "block", mb: 0.5 }}>
-            D. {article.publishDate ? formatDate(article.publishDate) : "N/A"} - Af {article.author?.authorName || "Unknown"}
+          <Typography variant="body2" sx={{ color: "#C52525", mb: 0.5 }}>
+            D. {article.publishDate ? formatDate(article.publishDate) : "N/A"} - {article.author?.authorName || "Unknown"}
           </Typography>
           <Typography variant="caption" sx={{ color: "#777", fontWeight: 600 }}>
             Læs mere
